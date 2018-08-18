@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="229" pageHeight="10000" columnWidth="189" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="17f2a88e-82b0-4b2b-b50a-48c361ab559a">
+	<property name="ireport.zoom" value="1.948717100000005"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select i.res_nm as [Resturant Name],i.res_ph as [Resturant Cell #],i.res_ph2 as [Resturant Phone #],
+i.res_adr as [Resturant Adress],
+e.bil_nm as [Bill Number], d.ds_nm as Dish,e.dh_qt as Quantity,d.ds_pr as Price,(e.dh_qt*d.ds_pr) 
+as Amount, t.tot as Total
+from SK_esti e 
+inner join SK_dish d
+on e.ds_nm=d.r_id
+left join SK_info i 
+on i.r_id = 1
+left join SK_tot t
+on 
+e.bil_nm = t.bil_nm
+where e.bil_nm='SK00019'
+order by d.ds_nm]]>
+	</queryString>
+	<field name="Resturant Name" class="java.lang.String"/>
+	<field name="Resturant Cell #" class="java.math.BigDecimal"/>
+	<field name="Resturant Phone #" class="java.math.BigDecimal"/>
+	<field name="Resturant Adress" class="java.lang.String"/>
+	<field name="Bill Number" class="java.lang.Object"/>
+	<field name="Dish" class="java.lang.String"/>
+	<field name="Quantity" class="java.lang.Double"/>
+	<field name="Price" class="java.lang.Integer"/>
+	<field name="Amount" class="java.lang.Double"/>
+	<field name="Total" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="75" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="189" height="20" uuid="e01935ad-b3e3-4af2-875a-9b2f50aae409"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Black" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Resturant Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="20" width="189" height="14" uuid="2319fc63-ae17-4cad-b1e5-5c5ce06c7741"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Resturant Adress}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="43" y="34" width="50" height="12" uuid="60156025-6a80-41fe-a392-6e2043a9c6dc"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Resturant Phone #}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="96" y="34" width="1" height="12" uuid="8e6f6d9a-9560-43aa-ab29-1cada302f1fa"/>
+			</line>
+			<textField>
+				<reportElement x="102" y="34" width="47" height="12" uuid="520c1b56-2405-44ec-9efe-088c6a026777"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Resturant Cell #}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="135" y="-22" width="57" height="20" uuid="3e0b069e-ef1c-40e4-aa1a-f7ceaa070059"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm.ss a">
+				<reportElement x="15" y="-22" width="57" height="20" uuid="26e1a645-fb20-413e-96c7-bb3f4d4a9fa7"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="15" y="-9" width="43" height="1" uuid="f09d4850-65d5-45f3-9e2c-7b8b7e0f0edf"/>
+			</line>
+			<line>
+				<reportElement x="136" y="-10" width="43" height="1" uuid="da8b4583-6901-47a8-9dbb-bf338bd6aa2e"/>
+			</line>
+			<staticText>
+				<reportElement x="3" y="4" width="41" height="12" uuid="3df63717-a776-45f4-aae0-18bfde5e3104"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dish]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="72" y="4" width="40" height="12" uuid="c7978ca6-d57b-455a-9424-cb862e2d3e59"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="118" y="4" width="25" height="12" uuid="730702bb-99fc-4973-8243-6b6ecb92d2a9"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="153" y="4" width="39" height="11" uuid="ab91f9ad-aadf-4bb5-aae6-31e95347b1f7"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement x="3" y="1" width="90" height="11" uuid="2fcf23c5-0b01-45a6-8470-909bd24bfcd9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dish}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="83" y="0" width="29" height="12" uuid="43df7944-6bef-4be8-a858-9e3bc0196b56"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Quantity}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="3" y="12" width="186" height="1" uuid="a8e5f618-ede6-4e42-b253-9bf104b28d06"/>
+			</line>
+			<textField>
+				<reportElement x="111" y="0" width="34" height="11" uuid="c443caa6-5c33-4faa-9e31-b911d8b19d5f"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="0" width="39" height="14" uuid="6fb00b71-a7f0-4857-94d4-ba8da5ad2079"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Amount}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="3" y="-2" width="186" height="1" uuid="6e05b5db-d78b-4032-9a4e-fbff519a5fa6"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="107" splitType="Stretch">
+			<line>
+				<reportElement x="14" y="30" width="53" height="1" uuid="01295fe6-d733-4e79-8172-d1374fcd54f2"/>
+			</line>
+			<staticText>
+				<reportElement x="14" y="15" width="57" height="20" uuid="f6bf47cb-a8ae-468e-88be-ef772cbf1cf0"/>
+				<text><![CDATA[Net Amount]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="136" y="15" width="45" height="22" uuid="7631646d-382e-42c0-8092-0fc9ef26eae6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Total}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="136" y="28" width="44" height="1" uuid="9f5e55d6-6187-471a-aacc-76ee019e4d41"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="47" width="189" height="20" uuid="96ca6296-c748-42e6-a358-35b87119b391"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Thank You for visiting our Resturant]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="67" width="189" height="16" uuid="ca323baa-73a8-4609-ad5c-6a220243818b"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[This Software was Developed by Kaaf Medai]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="79" width="189" height="16" uuid="60f7fb75-de61-48ef-8d27-0d04fcd460c8"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[www.kaafmedai.net]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="89" width="189" height="16" uuid="a643ecc3-eeeb-4437-b45f-5de16f398c1b"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Ibtesam Ahmed (03339107704)]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

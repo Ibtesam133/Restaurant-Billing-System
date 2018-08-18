@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="229" pageHeight="15000" columnWidth="189" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a6a9bb8f-5412-4631-b4e1-1758a31c3f97">
+	<property name="ireport.zoom" value="1.610510000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="40"/>
+	<queryString>
+		<![CDATA[select 
+qu.[amount toal],qu2.qun,
+i.res_nm as [Resturant Name],i.res_ph as [Resturant Cell #],i.res_ph2 as [Resturant Phone #],
+i.res_adr as [Resturant Adress],
+
+CONVERT(varchar(25), e.bil_dte_tym,103) as [Date] , e.bil_nm as [Bill Number],
+d.ds_nm as Dish,e.dh_qt as Quantity,
+(e.dh_qt*d.ds_pr) as Amount 
+from SK_esti e 
+inner join SK_dish d
+on e.ds_nm=d.r_id
+left join SK_info i 
+on i.r_id = 1
+LEFT OUTER JOIN 
+(
+select sum(e.dh_qt*d.ds_pr) as [amount toal]
+from SK_esti e 
+inner join SK_dish d
+on e.ds_nm=d.r_id
+left join SK_tot t
+on 
+e.bil_nm = t.bil_nm
+where (e.bil_dte_tym between '2017-10-16' and '2017-10-16') and e.bil_nm!='null' AND E.ds_nm=1
+)
+as qu
+on d.r_id=1
+LEFT OUTER JOIN 
+(
+select sum(e.dh_qt) as [qun]
+from SK_esti e 
+inner join SK_dish d
+on e.ds_nm=d.r_id
+left join SK_tot t
+on 
+e.bil_nm = t.bil_nm
+where (e.bil_dte_tym between '2017-10-16' and '2017-10-16') and e.bil_nm!='null' AND E.ds_nm=1
+)
+as qu2
+on d.r_id=1
+
+where (e.bil_dte_tym between '2017-10-16' and '2017-10-16')  and e.bil_nm!='null'
+AND E.ds_nm=1
+]]>
+	</queryString>
+	<field name="amount toal" class="java.lang.Double"/>
+	<field name="qun" class="java.lang.Double"/>
+	<field name="Resturant Name" class="java.lang.String"/>
+	<field name="Resturant Cell #" class="java.math.BigDecimal"/>
+	<field name="Resturant Phone #" class="java.math.BigDecimal"/>
+	<field name="Resturant Adress" class="java.lang.String"/>
+	<field name="Date" class="java.lang.String"/>
+	<field name="Bill Number" class="java.lang.String"/>
+	<field name="Dish" class="java.lang.String"/>
+	<field name="Quantity" class="java.lang.Double"/>
+	<field name="Amount" class="java.lang.Double"/>
+	<variable name="variable1" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="108" splitType="Stretch">
+			<textField>
+				<reportElement x="100" y="34" width="47" height="12" uuid="5a5c14c0-2abd-4494-a1e3-31b428e9264d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Resturant Cell #}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="94" y="34" width="1" height="12" uuid="574121fb-5291-45fb-9226-396a76e93544"/>
+			</line>
+			<textField>
+				<reportElement x="41" y="34" width="50" height="12" uuid="b10fe229-67d4-4f15-9c0c-acebbed6a0e5"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Resturant Phone #}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-2" y="0" width="189" height="20" uuid="a461dc14-ae56-4bf5-ae6c-0ad889ca57e1"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Black" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Resturant Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-2" y="20" width="189" height="14" uuid="08a31a14-790a-409c-9591-22b0c6addd0b"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Resturant Adress}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="10" y="72" width="43" height="1" uuid="88ebb97a-aaaa-42ce-9a4d-aa038e08baf8"/>
+			</line>
+			<textField pattern="h.mm.ss a">
+				<reportElement x="10" y="59" width="57" height="20" uuid="911ec2a1-646c-4786-88fd-3a61b56e0b93"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="131" y="71" width="43" height="1" uuid="904b1816-c01b-42f8-95b5-a3da47a14efa"/>
+			</line>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="130" y="59" width="57" height="20" uuid="ec056ebc-d6e2-4740-8753-62cf171fe009"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="46" y="84" width="100" height="20" uuid="30880461-cd22-4416-8434-ef59f85966b9"/>
+			</rectangle>
+			<textField>
+				<reportElement x="45" y="85" width="100" height="20" uuid="d1c08782-a889-4826-8172-204b4215e25c"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dish}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="153" y="3" width="39" height="11" uuid="794dcd78-db57-488d-b554-5fd4f499f9fb"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<line>
+				<reportElement x="3" y="15" width="186" height="1" uuid="d042de4d-3228-4c9a-8d5a-ff1c4d8e56f5"/>
+			</line>
+			<staticText>
+				<reportElement x="56" y="3" width="47" height="12" uuid="2255f074-ed4c-4c35-962b-c27152ba1253"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bill Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="3" width="35" height="12" uuid="d64cea7b-aead-459a-a090-8492239bf757"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="3" width="41" height="12" uuid="20f03b97-7c1d-4b8b-8285-14b6f7750f74"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<line>
+				<reportElement x="4" y="11" width="186" height="1" uuid="a37ec417-8491-4a01-9227-4729689f4997"/>
+			</line>
+			<textField>
+				<reportElement x="4" y="0" width="47" height="11" uuid="49eb970f-d71a-4237-9b51-db55058a559f"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="61" y="0" width="57" height="12" uuid="3c378937-f7b0-47cf-8393-625593840578"/>
+				<textElement textAlignment="Justified">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Bill Number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="121" y="0" width="51" height="13" uuid="343dd7af-1456-4b30-85c5-83be4f590ceb"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="156" y="0" width="48" height="13" uuid="b197dbeb-81c3-46c3-8c56-78f31d1a4942"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="10" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="127" splitType="Stretch">
+			<staticText>
+				<reportElement x="17" y="11" width="57" height="20" uuid="a0c21e6a-431b-4dda-a9b9-e0b2fb4d46b7"/>
+				<text><![CDATA[Net Amount]]></text>
+			</staticText>
+			<line>
+				<reportElement x="139" y="24" width="44" height="1" uuid="37ec7050-3697-4e3a-ac7d-7646d22d35c7"/>
+			</line>
+			<line>
+				<reportElement x="17" y="26" width="53" height="1" uuid="b305c3b4-3ed6-4c56-ba8c-d9fb9d668e6d"/>
+			</line>
+			<staticText>
+				<reportElement x="1" y="100" width="189" height="16" uuid="a8922d9a-7159-479f-8fbf-11f4b34edff2"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[www.kaafmedia.net]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="68" width="189" height="20" uuid="c60158e2-673b-4fdf-bbe3-42fcc69e126e"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Daily report According to the Dish]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="88" width="189" height="16" uuid="abe303d5-1e25-4edd-95a6-1035eb8bedcd"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[This Software was Developed by Kaaf Media]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="110" width="189" height="16" uuid="18b4b80d-4e18-4870-9c3e-530c8e1bd9e4"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Ibtesam Ahmed (03339107704)]]></text>
+			</staticText>
+			<image>
+				<reportElement x="80" y="12" width="50" height="15" uuid="2b188c92-1a36-4a5f-8ffa-a69e2ced478a"/>
+				<imageExpression><![CDATA["C:\\Users\\sony\\Documents\\NetBeansProjects\\Billing Management\\extra\\new images\\www.jpg"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="19" y="53" width="53" height="1" uuid="7c8a2f33-4303-44e4-9854-315f301728c7"/>
+			</line>
+			<staticText>
+				<reportElement x="16" y="37" width="57" height="20" uuid="cdaf4d07-6b2c-41a9-a01e-9b41a9f65257"/>
+				<text><![CDATA[Net Quantity]]></text>
+			</staticText>
+			<image>
+				<reportElement x="80" y="37" width="50" height="15" uuid="011bf05d-4444-46cd-af74-55845bd3c11f"/>
+				<imageExpression><![CDATA["C:\\Users\\sony\\Documents\\NetBeansProjects\\Billing Management\\extra\\new images\\www.jpg"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="140" y="47" width="44" height="1" uuid="90b7cee5-391f-41f2-ac43-9dd685bc6d90"/>
+			</line>
+			<textField>
+				<reportElement x="145" y="11" width="65" height="20" uuid="60474193-598a-4e86-bdb9-4435d920c6d3"/>
+				<textFieldExpression><![CDATA[$F{amount toal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="146" y="34" width="44" height="20" uuid="1f185228-66ff-4dd7-9fc1-51ff8e2f297f"/>
+				<textFieldExpression><![CDATA[$F{qun}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
